@@ -8,7 +8,9 @@ on:
         - 'prod/**' 
 env:
   PYTHON_FILE_DIR: 'prod/aws_utils_lib-base'
-
+  
+permissions:
+  id-token: write
 
 jobs:
   deploy-library:
