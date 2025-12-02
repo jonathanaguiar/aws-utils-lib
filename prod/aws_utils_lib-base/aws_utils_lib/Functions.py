@@ -4,6 +4,13 @@ import boto3
 import string
 from boto3.dynamodb.conditions import Key
 import datetime
+from decimal import Decimal
+
+class DecimalEncoder(json.JSONEncoder):
+  def default(self, obj):
+    if isinstance(obj, Decimal):
+      return str(obj)
+    return json.JSONEncoder.default(self, obj)
 
 def globalSession(profile,table):
     global session
@@ -75,8 +82,10 @@ def putItem(**kwargs):
     
     kwargs.pop('tbname',None)
     kwargs.pop('session',None)
-
-    Items=json.dumps(kwargs)
+    if dec:
+        Items=json.dumps(kwargs, cls=DecimalEncoder)
+    else:
+        Items=json.dumps(kwargs)
     Items=json.loads(Items)    
     try:
         response= tb.put_item(     
