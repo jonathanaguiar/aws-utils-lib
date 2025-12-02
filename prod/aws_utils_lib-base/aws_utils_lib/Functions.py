@@ -80,9 +80,10 @@ def putItem(**kwargs):
             tb=db(kwargs["tbname"])
     else:
         tb=gdb
-    
+    dec=kwargs["dec"]
     kwargs.pop('tbname',None)
     kwargs.pop('session',None)
+    kwargs.pop('dec',None)
     if dec:
         Items=json.dumps(kwargs, cls=DecimalEncoder)
     else:
