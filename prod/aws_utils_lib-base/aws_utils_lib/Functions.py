@@ -6,6 +6,7 @@ from boto3.dynamodb.conditions import Key
 import datetime
 from decimal import Decimal
 
+
 class DecimalEncoder(json.JSONEncoder):
   def default(self, obj):
     if isinstance(obj, Decimal):
